@@ -157,7 +157,7 @@ public:
      * HINT: When should a wrapper be considered "true" or "false"?
      * Why might the explicit keyword be important here?
      */
-     explicit operator bool() const {
+    explicit operator bool() const {
         if (ptr == nullptr)
             return false; 
         else

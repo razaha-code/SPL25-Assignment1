@@ -26,7 +26,7 @@ int DJControllerService::loadTrackToCache(AudioTrack& track) {
 
         trackWrapper.get()->load();
         trackWrapper.get()->analyze_beatgrid();
-        bool value = cache.put( std::move(trackWrapper));
+        bool value = cache.put(std::move(trackWrapper));
         if(value == true) {
             return -1;
         }

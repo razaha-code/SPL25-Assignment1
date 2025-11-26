@@ -29,12 +29,11 @@ bool LRUCache::put(PointerWrapper<AudioTrack> track) {
     std::string new_track_title = track->get_title();
 
     // Check if a track with the same title already exists in the cache
-    for (size_t i = 0; i < slots.size(); ++i) {
+    for (size_t i = 0; i < max_size; ++i) {
         if (slots[i].isOccupied()) {
             AudioTrack* existing_track = slots[i].getTrack();
             if (existing_track->get_title() == new_track_title) {
-                access_counter++;
-                slots[i].access(access_counter);
+                slots[i].access(++access_counter);
                 return evicted;
             }
         }
@@ -47,8 +46,7 @@ bool LRUCache::put(PointerWrapper<AudioTrack> track) {
         evicted = evictLRU();
     }
     size_t idx = findEmptySlot();
-    access_counter++;
-    slots[idx].store(std::move(track), access_counter);
+    slots[idx].store(std::move(track), ++access_counter);
     return evicted;
 }
 
@@ -100,7 +98,7 @@ size_t LRUCache::findLRUSlot() const {
     unsigned long min_access_time = 0;
     bool found_first_occupied = false;
 
-    for (size_t i = 0; i < slots.size(); ++i) {
+    for (size_t i = 0; i < max_size; ++i) {
         
         if (slots[i].isOccupied()) {
             

@@ -34,9 +34,9 @@ AudioTrack::~AudioTrack() {
     #ifdef DEBUG
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
     #endif
-        if (waveform_data != nullptr) {
-    delete[] waveform_data;
-    waveform_data = nullptr;
+    if (waveform_data != nullptr) {
+        delete[] waveform_data;
+        waveform_data = nullptr;
     }
 }
 
@@ -139,5 +139,15 @@ AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
 void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
     if (buffer && waveform_data && buffer_size <= waveform_size) {
         std::memcpy(buffer, waveform_data, buffer_size * sizeof(double));
+    }
+}
+
+/**
+ * @brief Set the BPM of the track (used for syncing)
+ * @param new_bpm The new BPM value
+ */
+void AudioTrack::set_bpm(int new_bpm) {
+    if (new_bpm > 0) {
+        bpm = new_bpm;
     }
 }
