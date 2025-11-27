@@ -118,6 +118,9 @@ void DJSession::simulate_dj_performance() {
 
     std::cout << "TODO: Implement the DJ performance simulation workflow here." << std::endl;
     // Your implementation here
+
+    std::cout << "check to commit" << std::endl;
+
 }
 
 
